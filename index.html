@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>BACCARAT</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Lobster" rel="stylesheet">
+
+  </head>
+  <body>
+    <div class="container">
+      <h1>RESPONSIBLY GAMBLING</h1>
+        <div class = "row">
+            <div class="player column">
+                <p class= 'type'> <button class= "option1"></button> PLAYER <span id= "playerScore"></span></p> 
+                <img class="p3 third card" src="cardimages/cardback.png">                
+                <img class="p2 card" src="cardimages/cardback.png">
+                <img class="p1 card" src="cardimages/cardback.png">
+              </div>        
+              <div class="banker column">
+                <p class= 'type'>BANKER <button class= "option2"></button><span id= "bankerScore"></span></p>                
+                <img class="b1 card" src="cardimages/cardback.png">
+                <img class="b2 card" src="cardimages/cardback.png">
+                <img class="b3 third card" src="cardimages/cardback.png">
+              </div>
+        </div>
+        <button class= "play button" id="main">START</button>
+        <audio src="sounds/Audio/cardShuffle.ogg" id="cardShuffle"></audio>
+        <button class = "bet button">BET</button>
+        <button class = "reset button" id="reset">PLAY AGAIN</button>
+    </div>
+  </body>
+
+  <footer>
+      <div class= "chipset">
+        <button class = "chip" id="five">$5</button>
+        <button class = "chip" id="twentyfive">$25</button>
+        <button class = "chip" id="fifty">$50</button>
+        <button class = "chip" id="hundred">$100</button>
+      </div>
+      <div class= "money">
+          <p>Your Money <span id= "balance"></span></p>
+          <p>Your Bets <span id= "bet"></span></p>
+      </div>
+    
+  </footer>
+  <script src="script.js" charset="utf-8"></script>
+</html>
