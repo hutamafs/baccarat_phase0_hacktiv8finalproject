@@ -52,7 +52,7 @@
   }
 
   /* button */
-  .button, .option1, .option2{
+  .button, #option1, #option2{
     border: none;
     color: white;
     padding: 16px 32px;
@@ -65,14 +65,12 @@
     cursor: pointer;
     border-radius: 80%;    
   }
-  .option1:visited {
-      background-color: blue;
-      color:white;
+  #option1.focus {      
+    background-color:blue;
   }
-  .option2:focus {
+  #option2.focus {    
     background-color:red;
-    color:white;
-}
+  } 
 
   .play {
     background-color: white; 

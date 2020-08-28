@@ -1,5 +1,9 @@
 const type = ['spades','hearts','clubs','diamonds'];
 const card = [1,2,3,4,5,6,7,8,9,10,11,12,13];
+var userChoice = '';    
+var initiationValue = 1000;
+var betting = 0;
+var output
 
  function deckKartu(a,b){
     let deck = [];
@@ -112,7 +116,7 @@ function flopCard(user,ai) {
         } else if (ai > user) {
             return bWin
         }
-    } else if (user == 8 || user == 9) {
+    } else if (user == 8 || user == 9 || ai == 8 || ai == 9) {
         if(ai<user) {
             return pNatural;
         } else if (ai == user) {
@@ -286,7 +290,10 @@ function helpChanging(string,behind,time) {
 }
 
 function callEverything(t,c) {
-    let output
+    if(!userChoice) {
+        document.querySelector("h1").innerText = 'PLACE YOUR BETS';
+        return 
+    } 
 
     let playingCard = deckKartu(t,c);
     let cardOnTable = ambilKartu(playingCard);
@@ -305,32 +312,46 @@ function callEverything(t,c) {
     let result1 = flopCard(playerFirstRound,bankerFirstRound); 
     
     let playerAdditionalCard = playerThirdCard(cards.p3);
-    let bankerAdditionalCard = bankerThirdCard(cards.b3);
+    let bankerAdditionalCard = bankerThirdCard(cards.b3);   
 
     if(result1 == undefined) {
         callThirdCard();
        output = lastCard(playerFirstRound,bankerFirstRound,playerAdditionalCard,bankerAdditionalCard)
        setTimeout(function(){
             document.querySelector("h1").innerText = output;
+            bettingResult();
         },8000);
 
     } else if(result1 != undefined) {
         output = result1;
         setTimeout(function() {
             document.querySelector("h1").innerText = output;
+            bettingResult();
         },6000);
     }
-    return output;
 }
 
+function bettingResult () {
+    //milih pb
+    if(!userChoice) {
+        document.querySelector("h1").innerText = 'PLACE YOUR BETS';
+    } else{
+        if(userChoice == output[0]) {
+            initiationValue += betting;
+        } else if (userChoice != output[0]) {
+            initiationValue -= betting;
+        }       
+        betting = 0;
+        document.getElementById("balance").innerText = initiationValue;
+        updateBetting();
+        userChoice = ''
+        document.getElementById("option1").classList.remove("focus");
+        document.getElementById("option2").classList.remove("focus");
+    }
+}
 document.getElementById("main").addEventListener("click",function() {
     playAudio();
     callEverything(type,card);      
-});
-
-document.getElementById("balik").addEventListener("click",function() {
-    console.log(`balikKartu`);
-    callThirdCard();  
 });
 
 document.getElementById("reset").addEventListener("click",function() {
@@ -341,35 +362,17 @@ document.getElementById("reset").addEventListener("click",function() {
 function playAudio() {
     document.getElementById("cardShuffle").play();
 }
-
-//masukin pilihan
-let userChoice = '';
-
+ 
 function choosePlayer () {
     userChoice = 'P'
+    document.getElementById("option1").classList.add("focus");
+    document.getElementById("option2").classList.remove("focus");
 }
 function chooseBanker () {
-    userChoice = 'B'
+    userChoice = 'B';
+    document.getElementById("option2").classList.add("focus");
+    document.getElementById("option1").classList.remove("focus");
 }
-
-document.getElementById("option1").addEventListener("click",function() {
-    choosePlayer();
-});
-document.getElementById("option2").addEventListener("click",function() {
-    chooseBanker();
-});
-
-if(userChoice == output[0]) {
-    initiationValue += betting;
-} else if (userChoice != output[0]) {
-    initiationValue -= betting;
-}
-
-
-//masukin bettingan
-let initiationValue = 1000;
-let betting = 0;
-
 function lima () {
     betting += 5;
 }
@@ -383,20 +386,40 @@ function seratus() {
     betting +=100
 }
 
-document.getElementsById("five").addEventListener("click",function() {
-    lima();
-});
-document.getElementsById("twentyfive").addEventListener("click",function() {
-    duaLima();  
-});
-document.getElementsById("fifty").addEventListener("click",function() {
-    limaPuluh()  
-});
-document.getElementsById("hundred").addEventListener("click",function() {
-    seratus(); 
-});
+function updateBetting() {
+    document.getElementById("bet").innerText = betting;
+}
 
-document.getElementById("bet").innerText = betting;
+//load semua klik
+window.onload = function() {
+       document.getElementById("option1").addEventListener("click",function() {
+        choosePlayer();
+    });
+    document.getElementById("option2").addEventListener("click",function() {
+        chooseBanker();
+    });
+
+    document.getElementById("five").addEventListener("click",function() {
+        lima();
+        updateBetting()
+    });
+    document.getElementById("twentyfive").addEventListener("click",function() {
+        duaLima();  
+        updateBetting()
+    });
+    document.getElementById("fifty").addEventListener("click",function() {
+        limaPuluh();
+        updateBetting()  
+    });
+    document.getElementById("hundred").addEventListener("click",function() {
+        seratus();
+        updateBetting() 
+    });
+
+    document.getElementById("bet").innerText = betting;
+}
+
+
 
 
 
