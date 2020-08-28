@@ -142,6 +142,13 @@ function changePicture(first,second,third,fourth) {
     helpChanging(".b2",fourth,4000);
 }
 
+function resetPicture() {
+    let resetKartu = document.getElementsByClassName("card");
+    for(let i = 0 ; i<resetKartu.length ; i++) {
+        resetKartu[i].setAttribute("src",'cardimages/cardback.png');
+    }
+}
+
 //ubah kartu player ke-3
 function playerThirdCard(input3) {
     let temp3 = '';
@@ -312,8 +319,8 @@ function callEverything(t,c) {
     let result1 = flopCard(playerFirstRound,bankerFirstRound); 
     
     let playerAdditionalCard = playerThirdCard(cards.p3);
-    let bankerAdditionalCard = bankerThirdCard(cards.b3);   
-
+    let bankerAdditionalCard = bankerThirdCard(cards.b3);
+    
     if(result1 == undefined) {
         callThirdCard();
        output = lastCard(playerFirstRound,bankerFirstRound,playerAdditionalCard,bankerAdditionalCard)
@@ -321,6 +328,10 @@ function callEverything(t,c) {
             document.querySelector("h1").innerText = output;
             bettingResult();
         },8000);
+        setTimeout(function() {
+            resetPicture();
+            document.querySelector("h1").innerText = 'PLACE YOUR BETS';
+        },10000);
 
     } else if(result1 != undefined) {
         output = result1;
@@ -328,6 +339,10 @@ function callEverything(t,c) {
             document.querySelector("h1").innerText = output;
             bettingResult();
         },6000);
+        setTimeout(function() {
+            resetPicture();
+            document.querySelector("h1").innerText = 'PLACE YOUR BETS';
+        },8000);
     }
 }
 
@@ -398,7 +413,6 @@ window.onload = function() {
     document.getElementById("option2").addEventListener("click",function() {
         chooseBanker();
     });
-
     document.getElementById("five").addEventListener("click",function() {
         lima();
         updateBetting()
@@ -418,8 +432,6 @@ window.onload = function() {
 
     document.getElementById("bet").innerText = betting;
 }
-
-
 
 
 

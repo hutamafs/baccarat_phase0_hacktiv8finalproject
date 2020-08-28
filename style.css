@@ -170,6 +170,11 @@
       margin-bottom:50px;
   }
 
+  #bankerScore#playerScore {
+    font-size:4rem;
+    color: black;
+  }
+
 
 
 
