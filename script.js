@@ -321,27 +321,41 @@ function callEverything(t,c) {
     let playerAdditionalCard = playerThirdCard(cards.p3);
     let bankerAdditionalCard = bankerThirdCard(cards.b3);
     
+    let totalPlayer = (playerFirstRound+playerAdditionalCard) % 10;
+    let totalBanker = (bankerFirstRound+bankerAdditionalCard) % 10;
+
+    console.log(totalPlayer);
+    console.log(totalBanker);
+
     if(result1 == undefined) {
         callThirdCard();
        output = lastCard(playerFirstRound,bankerFirstRound,playerAdditionalCard,bankerAdditionalCard)
        setTimeout(function(){
             document.querySelector("h1").innerText = output;
+            document.getElementById("playerScore").innerText = totalPlayer;
+            document.getElementById("bankerScore").innerText = totalBanker;
             bettingResult();
         },8000);
         setTimeout(function() {
             resetPicture();
             document.querySelector("h1").innerText = 'PLACE YOUR BETS';
+            document.getElementById("playerScore").innerText = 0;
+            document.getElementById("bankerScore").innerText = 0;
         },10000);
 
     } else if(result1 != undefined) {
         output = result1;
         setTimeout(function() {
             document.querySelector("h1").innerText = output;
+            document.getElementById("playerScore").innerText = playerFirstRound;
+            document.getElementById("bankerScore").innerText = bankerFirstRound;
             bettingResult();
         },6000);
         setTimeout(function() {
             resetPicture();
             document.querySelector("h1").innerText = 'PLACE YOUR BETS';
+            document.getElementById("playerScore").innerText = 0;
+            document.getElementById("bankerScore").innerText = 0;
         },8000);
     }
 }
