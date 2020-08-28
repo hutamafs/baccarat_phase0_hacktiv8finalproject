@@ -65,6 +65,13 @@
     cursor: pointer;
     border-radius: 80%;    
   }
+  #option1 {      
+    background-color: white;
+  }
+  #option2 {    
+    background-color: white;
+  } 
+
   #option1.focus {      
     background-color:blue;
   }
